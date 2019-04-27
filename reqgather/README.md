@@ -119,6 +119,8 @@ This can be used to ensure that if specific requirement text gets changed that i
 
 #### "downstream"
 The _"downstream"_ field contains a list of downstream requirements this requirement affects.
+The term "downstream" means, relative to the current requirement, it affects other requirements.
+Alternatively, the "downstream" requirements have a dependency on this requirement.
 If any requirement in this array is no longer satisfied, then a warning or error will be output from `reqtangle check`.
 
 #### "downstream_nowarning"
