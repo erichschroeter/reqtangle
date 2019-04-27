@@ -1,7 +1,0 @@
-[package]
-name = "reqcheck"
-version = "0.1.0"
-authors = ["Erich Schroeter <erich.schroeter@gmail.com>"]
-edition = "2018"
-
-[dependencies]
