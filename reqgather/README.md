@@ -44,6 +44,87 @@ We want to be able to say, "There's a requirement being satisfied in this file v
 So, perhaps a better example could be `// [REQ1234:+6]`.
 This example could indicate, "REQ1234 is satisfied by the following 6 lines of code".
 
+## Initial thoughts on storing traceability
+The following example shows a few examples of how I can see traceability being implemented within an open source project.
+A single file would track all the linkage.
+On projects that have no such file, it should be possible to generate such a file given certain assumptions that the code adheres to specifications such that `reqtangle gather` can find them.
+
+```json
+{
+    "REQ1": {
+        "downstream": [
+            "REQ2",
+            "REQ3"
+        ],
+        "downstream_nowarning": [
+            "REQ4"
+        ]
+    },
+    "REQ2": {
+        "sha256": {
+            "text": "EC2C03C9C39135792593E3CDB357F6353F20C8F74A56ED33846CBB9BD82C5031",
+            "code": "79053270080EB6FFB3CE01ED06B625A025CCE0C550C777F0D59429296F06647D"
+        },
+        "text": [
+            "The system have a variable with a value of 100."
+        ],
+        "code": [
+            "int some_important_default_variable = 100; // [REQ5]"
+        ]
+    },
+    "REQ4": {
+        "sha256": {
+            "code": "5175DE727A31F78FBFD0F46EC57F301EBE2D4B6D842062EF76443AF6EC476437"
+        },
+        "code": [
+            "// This loop must occur because I said so.",
+            "for ( int i = 0; i < 100; ++i )",
+            "{",
+            "   update_progress( i );",
+            "}",
+        ]
+    }
+}
+```
+### Example fields expanded
+In the example above the fields have specific meaning and intention.
+I'm thinking this file should only allow specifying requirement tracing uni-directionally in order to keep complexity down.
+I don't know if that will be possible at the time of this writing.
+
+#### "REQ1", "REQ2", etc.
+The _"REQ1"_, _"REQ2"_, etc. are the requirement identifiers.
+No two requirements shall have the same identifier.
+These identifiers need not exist in source code themselves.
+
+#### "sha256"
+The _"sha256"_ field contains a map of SHA256 hashes for the individual pieces of the requirement.
+The _"text"_ field is the hash of the actual requirement text itself.
+This is required so that downstream requirements affected by the changing of requirement intent can be detected and reviewed.
+The _"code"_ field is the has of the actual code implementation.
+This is required so that if that code ever changes it can be detected and reviewed to ensure the requirement(s) are still satisfied.
+
+#### "text"
+The _"text"_ field contains the actual requirement text expressing the intent that needs to be implemented by the code.
+This field _can_ be optional if the _"code"_ field exists, but that _should_ be an exceptional case.
+What this allows for is the ability to trace code only, even if there is no explicit requirement for its existence.
+This can be used to ensure that if specific code gets changed that it raises a red flag to developers.
+However, without an explanation it doesn't provide much context.
+In this case the explanation should be stored completely in the source file itself, thus negating the need to store it in this file.
+
+#### "code"
+The _"code"_ field contains the actual code implementing this requirement.
+This field _can_ be optional if the _"text"_ field exists, but that _should_ be an exceptional case.
+What this allows for is the ability to trace the requirement only, even if there is no explicit code implementing it.
+This can be used to ensure that if specific requirement text gets changed that it raises a red flag to developers.
+
+#### "downstream"
+The _"downstream"_ field contains a list of downstream requirements this requirement affects.
+If any requirement in this array is no longer satisfied, then a warning or error will be output from `reqtangle check`.
+
+#### "downstream_nowarning"
+The _"downstream_nowarning"_ field has the same purpose as the _"downstream"_ field, but with the intent of not producing a warning if the downstream requirements are no longer satisfied.
+This may be required on large projects that want the traceability, but not the verbose output produced by not adhering to specific requirements.
+
 # Links
 I used the following Google search term to find relevant links to this topic: _"trace requirements to code"_.
 
