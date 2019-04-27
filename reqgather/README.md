@@ -15,7 +15,7 @@ The closest thing I have observed are practices like Python's PEP and other RFC-
 Those are great, but I don't think changes within those documents are traced throughout the actual source code.
 
 I think there's a lot of potentially valid ways to represent requirements within a source directory.
-There may be existing implementations already.
+There may be existing implementations already, such as existing standards or company/project guidelines.
 I'm currently only aware of database oriented requirement managers (e.g. ClearCase).
 I have no delusion that requirement management is a complicated job, but I feel like there needs to be a solution for open source projects.
 If open source software is to be used at scale in the future there must be a way to manage requirements since there can potentially be hundreds or even thousands of contributors to a project that may affect millions or even billions of people.
@@ -32,5 +32,16 @@ Typcially, BDD is not a practice followed at the level of unit tests since users
 BDD works great for communicating human intent through scenarios that can be broken up into individual steps which are then converted to code that executes the actual software of which the BDD scenario was intended to communicate.
 As you may be able to see, BDD scenarios are a great way to formalize requirements agreed upon among humans.
 Those formalized requirements can then be broken down to the actual code that implements them.
+
+## How to trace requirements down to the source code
+How do projects know that a feature its users expect to exit actually exists?
+In fact how does the project actually know that that feature is expected?
+This information that should exist within a project's documentation, which can include the RFC's that spawned the features themselves.
+There needs to be a way to identify specific requirements.
+For example, requirement identifiers can exist within comments like `// [REQ1234]`.
+But, just by having a tag within a source file doesn't do much since all it really does is say, "Hey, there's a requirement being implemented within this file".
+We want to be able to say, "There's a requirement being satisfied in this file via these specific lines of code".
+So, perhaps a better example could be `// [REQ1234:+6]`.
+This example could indicate, "REQ1234 is satisfied by the following 6 lines of code".
 
 [0]: https://travis-ci.org
