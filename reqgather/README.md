@@ -44,4 +44,29 @@ We want to be able to say, "There's a requirement being satisfied in this file v
 So, perhaps a better example could be `// [REQ1234:+6]`.
 This example could indicate, "REQ1234 is satisfied by the following 6 lines of code".
 
+# Links
+I used the following Google search term to find relevant links to this topic: _"trace requirements to code"_.
+
+* [embedded.com article: Software Standards Compliance 101: Tracing code to requirements][2] - some insights into perhaps the origins of tracing requirements to code
+
+The following links are tools that exist that perform traceability to code:
+* [YAKINDU Traceability][3] - looks like they use pattern matching to find tags in files
+* [inflectra][4] - looks like heavy usage of Requirements Traceability Matrix (RTM)
+
+The following links are white papers on tracing requirements to source code.
+They are behind paywalls, so I may try to ask their owners if they can be made available for free for an open source project.
+* [Analyzing the Tracing of Requirements and Source Code during Software Development][5]
+** Have not read
+* [Tracing Requirements and Source Code during Software Development: An Empirical Study][6]
+** Defined 3 processes for creating traceability links between requirements and code (severely summarized below)
+*** Process A: capture requirements before coding and link the code to the new requirements.
+*** Process B: code before linking requirements and link when committing code.
+*** Process C: link requirements to existing code already committed.
+
 [0]: https://travis-ci.org
+[1]: https://automationpanda.com/2017/01/30/bdd-101-writing-good-gherkin/
+[2]: https://www.embedded.com/design/safety-and-security/4441700/Software-Standards-Compliance-101--Tracing-code-to-requirements
+[3]: https://blogs.itemis.com/en/feature-of-the-month-march-2017-tracing-requirements-and-source-code
+[4]: https://www.inflectra.com/ideas/topic/requirements-traceability.aspx
+[5]: https://link.springer.com/chapter/10.1007/978-3-642-37422-7_22
+[6]: https://ieeexplore.ieee.org/document/6681335
