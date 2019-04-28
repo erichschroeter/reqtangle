@@ -11,3 +11,5 @@ Reqtangle, a requirement manager utility.
 """
 
 [dependencies]
+docopt = "1"
+serde = { version = "1", features = ["derive"] }
