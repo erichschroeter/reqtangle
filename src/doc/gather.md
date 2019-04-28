@@ -64,36 +64,56 @@ On projects that have no such file, it should be possible to generate such a fil
 ```json
 {
     "REQ1": {
+        "sha256": {
+            "text": "9516B97F7386C88F2C34997E5C9DE60F23B80EDBABB5381FB910BC79074081C1",
+        },
+        "text": [
+            "Some great requirement."
+        ],
         "downstream": [
-            "REQ2",
-            "REQ3"
+            "REQ2"
         ],
         "downstream_nowarning": [
-            "REQ4"
+            "REQ3"
         ]
     },
     "REQ2": {
         "sha256": {
             "text": "EC2C03C9C39135792593E3CDB357F6353F20C8F74A56ED33846CBB9BD82C5031",
-            "code": "79053270080EB6FFB3CE01ED06B625A025CCE0C550C777F0D59429296F06647D"
+            "code": "40FD9AF578757C927B0FDCFB61971ED6D1720EF320C63CA4EB205FF5C3B2F101"
         },
         "text": [
             "The system have a variable with a value of 100."
         ],
         "code": [
-            "int some_important_default_variable = 100; // [REQ5]"
+            {
+                "path": "src/important_file.c",
+                "line": 1337,
+                "text": "int some_important_default_variable = 100; // [REQ5]"
+            },
+            {
+                "path": "src/another_important_file.c",
+                "line": 343,
+                "text": "int some_important_default_variable = 100; // [REQ5]"
+            }
         ]
     },
-    "REQ4": {
+    "REQ3": {
         "sha256": {
-            "code": "5175DE727A31F78FBFD0F46EC57F301EBE2D4B6D842062EF76443AF6EC476437"
+            "code": "354AF77EFD41682FF72C64ABEA09B8A7CAEB71397CDA432CD45D13A2D70AE591"
         },
         "code": [
-            "// This loop must occur because I said so.",
-            "for ( int i = 0; i < 100; ++i )",
-            "{",
-            "   update_progress( i );",
-            "}",
+            {
+                "path": "src/main.c",
+                "line": 42,
+                "text": [
+                    "// This loop must occur because I said so.",
+                    "for ( int i = 0; i < 100; ++i )",
+                    "{",
+                    "   update_progress( i );",
+                    "}",
+                ]
+            }
         ]
     }
 }
