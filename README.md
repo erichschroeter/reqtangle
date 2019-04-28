@@ -36,3 +36,21 @@ Requirements that cannot be validated automatically shall be marked such that it
 
 - reqgather - Parses source files for requirements.
 - reqcheck  - Checks the tracing between requirements and any potential errors. This program could analyze any suspect requirement breakage in terms of green-yellow-orange-red for likelhood of actual breakage.
+
+# What Problem Does Reqtangle Try To Solve
+There are millions of lines of code that exist in millions of different open source projects.
+Not every line of code needs to be traced to a requirement, and trying to do so would be way too much work.
+Reqtangle simply tries to provide a means to make tracing requirements down to the actual code that implements a requirement possible.
+
+Let's not fool ourselves, managing requirements is not something people who want to write code want to do.
+But for some projects requirements _should_ be something that is documented and managed to some level.
+On a project with millions of lines of code, when a new contributor wants to help by fixing bugs or adding new features, how can they have confidence that their changes are not going to break something?
+For the most part, this is resolved by regression tests.
+And that is probably fine for a majority of open source projects.
+But what happens when a project is so big or has been around for a long time, there may be several design changes and code moved around where a single person, and even a small group, can keep up with so many contributions.
+One solution is to provide a means for individuals to know whether or not they may have made changes that break agreed upon requirements among the community.
+When this occurs it can spawn a discussion within the community that can result in officially changing one or more requirements.
+
+But we need to be careful not to turn an open source software project into an open source requirement management project.
+This is where rules/guidelines need to be decided upon for individual projects.
+For example, most projects probably won't want to invasively track most requirements, especially if specific code is updated frequently.
