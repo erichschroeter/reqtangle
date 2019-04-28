@@ -9,6 +9,18 @@ For example, let's say a project creates their own set of guidelines that were a
 That project can formalize those guidelines in a manor that reqgather understands.
 Then when reqgather is executed, the project would specify `--spec RFC1234` which would ultimately resolve down to a config file that reqgather understands.
 
+### Invasive
+As far as tracing a requirement to the actual code that implements it, the invasive way would mean modifying the codebase in a way that reqtangle understands.
+The most obvious way would be to have special identifiers, such as `[REQxxxx]` within comments, that can easily be parsed.
+
+I feel like the invasive methodology can get out of hand pretty quick, especially if requirements change often.
+Commenting code in open source projects is typcially avoided for multiple reasons.
+
+### Noninvasive
+Tracing requirements within source code without modifying the source code itself means data would need to be stored separately.
+I believe this is how most requirement manager software currently is implemented.
+My thoughts on this would be to store this data within the source repo along with the source code and consider it part of the source.
+
 ## Requirement management in open source
 At the time of starting this project I am unaware of any open source projects officially managing requirements.
 The closest thing I have observed are practices like Python's PEP and other RFC-related practices.
