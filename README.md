@@ -54,3 +54,7 @@ When this occurs it can spawn a discussion within the community that can result 
 But we need to be careful not to turn an open source software project into an open source requirement management project.
 This is where rules/guidelines need to be decided upon for individual projects.
 For example, most projects probably won't want to invasively track most requirements, especially if specific code is updated frequently.
+
+One particular scenario I envision Reqtangle being used in large open source projects is for tracking deprecated code.
+This is one scenario where invasive requirements may be of greater use, because maintainers can use reqtangle to track when to remove code that is no longer supported.
+This makes it trivial to find the code that should no longer exist in the code base and simplify the code for maintainers in the future.
