@@ -1,6 +1,10 @@
-use std::fs;
+use std::error::Error;
+use std::env;
+use std::path::Path;
 use docopt::Docopt;
 use serde::Deserialize;
+
+mod gather;
 
 const USAGE: &'static str = "
 reqtangle
@@ -14,17 +18,25 @@ Usage:
 struct Args {
     cmd_gather: bool,
     cmd_check: bool,
-    arg_paths: Option<String>,
+    arg_paths: Vec<String>,
 }
 
-fn main() {
+fn main() -> Result<(), Box<dyn Error>> {
     let args: Args = Docopt::new(USAGE)
         .and_then(|d| d.deserialize())
         .unwrap_or_else(|e| e.exit());
     if args.cmd_gather {
-        println!("req gather {}", args.arg_paths.unwrap_or_default());
-        unimplemented!("req gather")
+        if args.arg_paths.is_empty() {
+            let current_dir = env::current_dir()?;
+            gather::traverse(&current_dir)?;
+        } else {
+            for path in args.arg_paths {
+                let path = Path::new(&path);
+                gather::traverse(&path)?;
+            }
+        }
     } else if args.cmd_check {
-        println!("req check {}", args.arg_paths.unwrap_or_default());
+        unimplemented!();
     }
+    Ok(())
 }
