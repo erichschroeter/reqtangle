@@ -1,5 +1,6 @@
 use std::error::Error;
 use std::path::Path;
+use std::fs;
 
 extern crate walkdir;
 
@@ -14,6 +15,10 @@ fn is_not_hidden(entry: &DirEntry) -> bool {
 }
 
 pub fn traverse(path: &Path) -> Result<(), Box<dyn Error>> {
+    if !Path::new(".reqtangle").exists() {
+        fs::create_dir(".reqtangle")?;
+    }
+
     for entry in WalkDir::new(path)
             .follow_links(true)
             .into_iter()
